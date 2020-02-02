@@ -1,0 +1,83 @@
+<div class="page page-table" data-ng-controller="tableCtrl">
+    <section class="panel panel-default table-dynamic">
+        <div class="panel-heading"><strong> <span class="glyphicon glyphicon-th" data-translate="WALKERS"></span> </strong>
+        </div>
+        <div class="table-filters">
+            <div class="row">
+                <div class="col-sm-4 col-xs-6">
+                    <form>
+                        <input type="text"
+                               placeholder="Search..."
+                               class="form-control"
+                               data-ng-model="walkers.searchKeywords"
+                               data-ng-keyup="walkers.search()">
+                    </form>
+                </div>
+                <div class="col-sm-3 col-xs-3 filter-result-info">
+                    <span>
+                        Showing {{walkers.data.results.length}}/{{walkers.data.count}} entries
+                    </span>              
+                </div>
+                <div class="col-sm-3 col-xs-3 filter-result-info">
+                    <div class="form-group col- fftnr cg" id="group-ratingEnter" align="right">
+                        <button type="button" 
+                                class="btn btn-success btn-sm ng-binding"
+                                ng-click="walkers.add()">
+                            {{'CREATE_WALKERS' | translate}}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <table class="table table-bordered table-striped table-responsive">
+            <thead>
+                <tr>
+                   <th><div class="th"></div></th>
+                   <th><div class="th" data-translate="HOUSEHOLD_CODE"></div></th>
+                    <th><div class="th" data-translate="DOCUMENT_TYPE"></div></th>
+                    <th><div class="th" data-translate="DOCUMENT"></div></th>
+                    <th><div class="th" data-translate="FIRST_NAME"></div></th>
+                    <th><div class="th" data-translate="SECOND_NAME"></div></th>
+                    <th><div class="th" data-translate="SURNAME"></div></th>
+                    <th><div class="th" data-translate="SECOND_SURNAME"></div></th>
+                    <th><div class="th" data-translate="GENDER"></div></th>
+                    <th><div class="th" data-translate="BIRTH_DATE"></div></th>
+                    <th><div class="th" data-translate="NATIONALITY"></div></th>
+                    <th><div class="th" data-translate="INKIND"></div></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr data-ng-repeat="beneficiary in walkers.beneficiaries">
+                    <td><span 
+                      title="{{action.tooltip}}"
+                      style="font-size:10px; color=#4E7FE1; cursor:pointer;"
+                      data-code="0"
+                      class="glyphicon glyphicon-edit"
+                      ng-click="walkers.edit(beneficiary)">
+                    &nbsp;
+                </span></td>
+                    <td>{{beneficiary.household_code}}</td>
+                    <td>{{beneficiary.document_type}}</td>
+                    <td>{{beneficiary.document}}</td>
+                    <td>{{beneficiary.first_name}}</td>
+                    <td>{{beneficiary.second_name}}</td>
+                    <td>{{beneficiary.surname}}</td>
+                    <td>{{beneficiary.second_surname}}</td>
+                    <td>{{beneficiary.gender}}</td>
+                    <td>{{beneficiary.birth_date}}</td>
+                    <td>{{beneficiary.nationality}}</td>
+                    <td bgcolor="{{beneficiary.color}}"></td>
+                </tr>
+            </tbody>
+        </table>
+        <footer class="table-footer">
+            <div class="row">
+                <div class="col-md-12 text-right pagination-container">
+                    <a href ng-click="walkers.previous()" class="ng-binding">Anterior</a>
+                    <a href ng-click="walkers.next()" class="ng-binding">Siguiente</a>
+                </div>
+            </div>
+        </footer>
+    </section>
+
+</div>

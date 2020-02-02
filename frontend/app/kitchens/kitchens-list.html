@@ -1,0 +1,218 @@
+<div class="page page-table" data-ng-controller="ModalDemoCtrl">
+    <section class="panel panel-default table-dynamic">
+        <div class="panel-heading"><strong> <span class="glyphicon glyphicon-th" data-translate="KITCHENS"></span> </strong>
+        </div>
+        <div class="table-filters">
+            <div class="row">
+                <div class="col-sm-4 col-xs-6">
+                    <form>
+                        <input type="text"
+                               placeholder="Search..."
+                               class="form-control"
+                               data-ng-model="kitchens.searchKeywords"
+                               data-ng-keyup="kitchens.search()">
+                    </form>
+                </div>
+                <div class="col-sm-3 col-xs-3 filter-result-info">
+                    <span>
+                        {{"SHOWING"|translate}} {{kitchens.data.results.length}} / {{kitchens.data.count}} {{"ENTRIES"|translate}}
+                    </span>              
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 pagination-container">
+              <div class="col-sm-12">
+                <div class="input-group ">
+                    <ul class="pagination">
+                      <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="kitchens.previous()">
+                          <span class="glyphicon glyphicon-triangle-left"></span>
+                        </button>
+                      </span>
+                      <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="kitchens.next()">
+                          <span class="glyphicon glyphicon-triangle-right"></span>
+                        </button>
+                      </span>
+                    </ul>
+                </div>
+              </div>
+            </div>
+
+              <div class="col-sm-6 text-right">
+                  <div class="col-sm-12">
+                      <div class="form-group col- fftnr cg">
+                        <button type="button" 
+                                class="btn btn-success btn-sm ng-binding"
+                                ng-click="kitchens.add()">
+                            {{'CREATE_KITCHENS' | translate}}</button>
+                      </div>
+                  </div>
+              </div>
+
+
+        </div>
+
+
+                        <div class="row">
+                            <div class="col-sm-12" ng-show="kitchens.beneficiaries.length">
+                              <div class="card-columns">
+                                <div class="card"  data-ng-repeat="beneficiary in kitchens.beneficiaries">
+                                  <div class="card-header">
+                                    {{beneficiary.household_code}}
+                                  </div>
+                                  <div class="card-body ">
+                                        <h5 class="card-title">{{kitchens.getNameById(beneficiary.document_type,kitchens.documentstype)}}</h5>
+                                        <p class="card-text">{{beneficiary.document}}</p>
+                                        <span class="badge badge-success">{{beneficiary.modality_type}} </span>
+                                        <span class="badge badge-primary">{{beneficiary.modality}} </span>
+                                  </div>
+                                  <div class="card-footer text-right">
+                                        {{beneficiary.year}}/{{beneficiary.month}}/{{beneficiary.day}}
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div ng-show="!kitchens.beneficiaries.length">
+                              <div class="alert alert-info container col-sm-12" role="alert">
+                                {{'NO_DATA' | translate}}
+                              </div>
+                            </div>
+                        </div>
+
+        <table class="table table-bordered table-striped table-responsive table-darks table-hover">
+            <thead class="thead-dark">
+                <tr>
+                   <th><div class="th"></div></th>
+                   <th><div class="th" data-translate="HOUSEHOLD_CODE"></div></th>
+                    <th><div class="th" data-translate="DOCUMENT_TYPE"></div></th>
+                    <th><div class="th" data-translate="DOCUMENT"></div></th>
+                    <th><div class="th" data-translate="FIRST_NAME"></div></th>
+                    <th><div class="th" data-translate="SECOND_NAME"></div></th>
+                    <th><div class="th" data-translate="SURNAME"></div></th>
+                    <th><div class="th" data-translate="SECOND_SURNAME"></div></th>
+                    <th><div class="th" data-translate="GENDER"></div></th>
+                    <th><div class="th" data-translate="BIRTH_DATE"></div></th>
+                    <th><div class="th" data-translate="NATIONALITY"></div></th>
+                    <th><div class="th" data-translate="KITCHENS"></div></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr data-ng-repeat="beneficiary in kitchens.beneficiaries">
+                    <td>
+                        <button type="button" class="btn btn-default" ng-click="kitchens.edit(beneficiary)">
+                            <span 
+                                title="{{'EDIT' | translate}}"
+                                style="font-size:10px; color=#4E7FE1; cursor:pointer;"
+                                data-code="0"
+                                class="glyphicon glyphicon-edit"
+                            >
+                            </span>
+                        </button>
+                    </td>
+                    <td>{{beneficiary.household_code}}</td>
+                    <td>{{kitchens.getNameById(beneficiary.document_type,kitchens.documentstype)}}</td>
+                    <td>{{beneficiary.document}}</td>
+                    <td>{{beneficiary.first_name}}</td>
+                    <td>{{beneficiary.second_name}}</td>
+                    <td>{{beneficiary.surname}}</td>
+                    <td>{{beneficiary.second_surname}}</td>
+                    <td>{{kitchens.getNameById(beneficiary.gender,kitchens.genders)}}</td>
+                    <td>{{beneficiary.birth_date}}</td>
+                    <td>{{kitchens.getNameById(beneficiary.nationality,kitchens.nationalities)}}</td>
+                    <td bgcolor="{{beneficiary.color}}">
+                        <button 
+                            type="button" 
+                            class="btn btn-primary px-3" 
+                            ng-click="kitchens.open(beneficiary)">
+                            <span class="glyphicon glyphicon-ok"></span>
+                        </button>
+                    </td>
+
+                </tr>
+            </tbody>
+        </table>
+        <footer class="table-footer">
+            <div class="row">
+                <div class="col-md-12 pagination-container">
+                    <div class="input-group">
+                        <ul class="pagination">
+                          <span class="input-group-btn">
+                            <button type="button" class="btn btn-default" ng-click="kitchens.previous()">
+                              <span class="glyphicon glyphicon-triangle-left"></span>
+                            </button>
+                          </span>
+                          <span class="input-group-btn">
+                            <button type="button" class="btn btn-default" ng-click="kitchens.next()">
+                              <span class="glyphicon glyphicon-triangle-right"></span>
+                            </button>
+                          </span>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </section>
+
+
+    <div class="row">
+
+
+
+        <div class="col-md-6">
+
+            <!-- Modal -->
+            <!--section class="panel panel-default">
+                <div class="panel-heading"><span class="glyphicon glyphicon-th"></span> Modal</div>
+                <div class="panel-body" data-ng-controller="ModalDemoCtrl">
+                    <script type="text/ng-template" id="myModalContent.html">
+                        <div class="modal-header">
+                            <h3>I am a modal!</h3>
+                        </div>
+                        <div class="modal-body">
+                            <span ng-repeat="item in items" class="list-unstyled">
+                                ATTENDANCE
+                                <label class="ui-radio"><input name="radio1" type="radio" value="{{ item }}"  ng-checked="selected.item === item" ng-click="selected.item = item"><span>{{ item }}</span></label>
+                            </span>
+                            <br>
+                            Selected: <b>{{ selected.item }}</b>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-primary" ng-click="ok()">OK</button>
+                            <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+                        </div>
+                    </script>
+
+                    <button class="btn btn-gap-v btn-primary" ng-click="open()">Open me!</button>
+                    <button class="btn btn-gap-v btn-info" ng-click="open('lg')">Large modal</button>
+                    <button class="btn btn-gap-v btn-warning" ng-click="open('sm')">Small modal</button>
+                    <button class="btn btn-gap-v btn-success" ng-click="toggleAnimation()">Toggle Animation ({{ animationsEnabled }})</button>
+                    <div class="divider"></div>
+                    <div class="callout callout-info">
+                        <p>Selection from a modal: <strong>{{ selected }}</strong></p>
+                    </div>
+                </div>
+            </section-->
+            <!-- end Modal -->
+
+        </div>
+        <div class="col-md-6">
+
+            <!-- Collapse -->
+            <!--section class="panel panel-default">
+                <div class="panel-heading"><span class="glyphicon glyphicon-th"></span> Collapse</div>
+                <div class="panel-body" data-ng-controller="CollapseDemoCtrl">
+                    <button class="btn btn-primary" ng-click="isCollapsed = !isCollapsed">Toggle collapse</button>
+                    <div class="divider divider-md"></div>
+                    <div uib-collapse="isCollapsed">
+                        <div class="well well-lg">Some content</div> 
+                    </div>            
+                </div>
+            </section-->
+            <!-- end Collapse -->
+
+        </div>
+    </div>
+
+</div>

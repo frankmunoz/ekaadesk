@@ -1,0 +1,497 @@
+<!--pre>
+    {{walkers.data|json}}
+</pre-->
+<div class="page page-form">
+    <div class="panel panel-default" data-ng-controller="formConstraintsCtrl">
+        <div class="panel-heading"><strong><span class="glyphicon glyphicon-th"></span> Constraints</strong></div>
+        <div class="panel-body">
+
+          <form class="form-horizontal" role="form" ng-submit="assistance.processForm(assistanceFrm)" name="assistanceFrm" novalidate>
+
+              <div class="panel-body">
+              <uib-tabset type="pills">
+                  <uib-tab>
+                      <uib-tab-heading>
+                          <i class="glyphicon glyphicon-file"></i> {{'CONSECUTIVE' | translate}} {{walkers.data.consecutivo}}
+                      </uib-tab-heading>
+                  <div class="col-sm-12">
+                      <div class="col-sm-5">
+                          <div class="form-group col- fftnr cg" id="group-firstName">
+                              <label class="control-label" for="firstName">{{'FIRST_NAME' | translate}}</label>
+                              <input type="text" 
+                                     validator="req"
+                                     class="form-control input-sm" 
+                                     id="firstName" 
+                                     name="firstName"  
+                                     title="{{'FIRST_NAME' | translate}}" 
+                                     ng-model="walkers.data.first_name"
+                                     tabindex="1"/>
+                          </div>
+                      </div>
+                      <div class="col-sm-1"></div>
+                      <div class="col-sm-5">
+                          <div class="form-group col- fftnr cg" id="group-secondName">
+                              <label class="control-label" for="secondName">{{'SECOND_NAME' | translate}}</label>
+                              <input type="text" 
+                                     validator="req"
+                                     class="form-control input-sm" 
+                                     id="secondName" 
+                                     name="secondName"  
+                                     title="{{'SECOND_NAME' | translate}}" 
+                                     ng-model="walkers.data.second_name"
+                                     tabindex="1"/>
+                          </div>
+                      </div>
+                      <div class="col-sm-5">
+                          <div class="form-group col- fftnr cg" id="group-surname">
+                              <label class="control-label" for="surname">{{'SURNAME' | translate}}</label>
+                              <input type="text" 
+                                     validator="req"
+                                     class="form-control input-sm" 
+                                     id="surname" 
+                                     name="surname"  
+                                     title="{{'SURNAME' | translate}}" 
+                                     ng-model="walkers.data.surname"
+                                     tabindex="1"/>
+                          </div>
+                      </div>
+                      <div class="col-sm-1"></div>
+                      <div class="col-sm-5">
+                          <div class="form-group col- fftnr cg" id="group-secondSurname">
+                              <label class="control-label" for="secondSurname">{{'SECOND_SURNAME' | translate}}</label>
+                              <input type="text" 
+                                     validator="req"
+                                     class="form-control input-sm" 
+                                     id="secondSurname" 
+                                     name="secondSurname"  
+                                     title="{{'SECOND_SURNAME' | translate}}" 
+                                     ng-model="walkers.data.second_surname"
+                                     tabindex="1"/>
+                          </div>
+                      </div>
+                      <div class="col-sm-5">
+                          <div class="form-group col- fftnr cg" id="group-documentType">
+                              <label class="control-label" for="documentType">{{'DOCUMENT_TYPE' | translate}}</label>
+                              <input type="text" 
+                                     validator="req"
+                                     class="form-control input-sm" 
+                                     id="documentType" 
+                                     name="documentType"  
+                                     title="{{'DOCUMENT_TYPE' | translate}}" 
+                                     ng-model="walkers.data.document_type"
+                                     tabindex="1"/>
+                          </div>
+                      </div>
+                      <div class="col-sm-1"></div>
+                      <div class="col-sm-5">
+                          <div class="form-group col- fftnr cg" id="group-document">
+                              <label class="control-label" for="document">{{'DOCUMENT' | translate}}</label>
+                              <input type="text" 
+                                     validator="req"
+                                     class="form-control input-sm" 
+                                     id="document" 
+                                     name="document"  
+                                     title="{{'DOCUMENT' | translate}}" 
+                                     ng-model="walkers.data.document"
+                                     tabindex="1"/>
+                          </div>
+                      </div>
+                      <div class="col-sm-5">
+                          <div class="form-group col- fftnr cg" id="group-gender">
+                            <label class="control-label" for="gender">{{'GENDER' | translate}}</label>
+                            <p class="input-group">
+                              <select chosen option="genders"
+                                id="gender"
+                                name="gender"  
+                                validator="req"
+                                title="{{'GENDER' | translate}}" 
+                                ng-model="walkers.data.gender"
+                                ng-options="gender.id as gender.name for gender in walkers.genders">
+                              </select>
+                            </p>
+                          </div>
+                      </div>
+                      <div class="col-sm-1"></div>
+                      <div class="col-sm-5">
+                          <div class="form-group col- fftnr cg" id="group-birthDate">
+                              <label class="control-label" for="birthDate">{{'BIRTH_DATE' | translate}}</label>
+
+                              <p class="input-group">
+                                  <input type="text" 
+                                         validator="req"
+                                         class="form-control input" 
+                                         id="birthDate" 
+                                         name="birthDate" 
+                                         title="{{'BIRTH_DATE' | translate}}" 
+                                         ng-model="walkers.data.birth_date"
+                                         is-open="walkers.birthDateCalendar.opened"
+                                         datepicker-options="walkers.vdOptions"
+                                         uib-datepicker-popup="{{walkers.dateFormat}}"
+                                         tabindex="3"/>
+                                  <span class="input-group-btn">
+                                      <button type="button" class="btn btn-default input" ng-click="walkers.birthDateCalendar.opened = true">
+                                          <i class="glyphicon glyphicon-calendar"></i>
+                                      </button>
+                                  </span>
+                          </div>
+                      </div>
+                      <div class="col-sm-5">
+                          <div class="form-group col- fftnr cg" id="group-nationality">
+                              <label class="control-label" for="nationality">{{'NATIONALITY' | translate}}</label>
+                              <input type="text" 
+                                     validator="req"
+                                     class="form-control input-sm" 
+                                     id="nationality" 
+                                     name="nationality"  
+                                     title="{{'NATIONALITY' | translate}}" 
+                                     ng-model="walkers.data.nationality"
+                                     tabindex="1"/>
+                          </div>
+                      </div>
+                      <div class="col-sm-1"></div>
+                      <div class="col-sm-5">
+                          <div class="form-group col- fftnr cg" id="group-pregnant">
+                              <label class="control-label" for="pregnant">{{'PREGNANT' | translate}}</label>
+                              <input type="text" 
+                                     validator="req"
+                                     class="form-control input-sm" 
+                                     id="pregnant" 
+                                     name="pregnant"  
+                                     title="{{'PREGNANT' | translate}}" 
+                                     ng-model="walkers.data.pregnant"
+                                     tabindex="1"/>
+                          </div>
+                      </div>
+                      <div class="col-sm-5">
+                          <div class="form-group col- fftnr cg" id="group-aditionalInformation">
+                              <label class="control-label" for="migratorystatus">{{'MIGRATORY_STATUS' | translate}}</label>
+                              <input type="text" 
+                                     validator="req"
+                                     class="form-control input-sm" 
+                                     id="migratoryStatus" 
+                                     name="migratoryStatus"  
+                                     title="{{'MIGRATORY_STATUS' | translate}}" 
+                                     ng-model="walkers.data.migratory_status"
+                                     tabindex="1"/>
+                          </div>
+                      </div>
+                      <div class="col-sm-1"></div>
+                      <div class="col-sm-5">
+                          <div class="form-group col- fftnr cg" id="group-phone">
+                              <label class="control-label" for="phone">{{'PHONE' | translate}}</label>
+                              <input type="text" 
+                                     validator="req"
+                                     class="form-control input-sm" 
+                                     id="phone" 
+                                     name="phone"  
+                                     title="{{'PHONE' | translate}}" 
+                                     ng-model="walkers.data.phone"
+                                     tabindex="1"/>
+                          </div>
+                      </div>
+                      <div class="col-sm-1"></div>
+                      <div class="col-sm-5">
+                          <div class="form-group col- fftnr cg" id="group-disability">
+                              <label class="control-label" for="disability">{{'DISABILITY' | translate}}</label>
+                              <input type="text" 
+                                     validator="req"
+                                     class="form-control input-sm" 
+                                     id="disability" 
+                                     name="disability"  
+                                     title="{{'DISABILITY' | translate}}" 
+                                     ng-model="walkers.data.disability"
+                                     tabindex="1"/>
+                          </div>
+                      </div>
+
+                      <div class="col-sm-1"></div>
+                      <div class="col-sm-5">
+                          <div class="form-group col- fftnr cg" id="group-householdrole">
+                              <label class="control-label" for="householdrole">{{'HOUSEHOLD_ROLE' | translate}}</label>
+                              <input type="text" 
+                                     validator="req"
+                                     class="form-control input-sm" 
+                                     id="householdrole" 
+                                     name="householdrole"  
+                                     title="{{'HOUSEHOLD_ROLE' | translate}}" 
+                                     ng-model="walkers.data.householdrole"
+                                     tabindex="1"/>
+                          </div>
+                      </div>
+
+
+                       <div class="col-sm-1"></div>
+                      <div class="col-sm-5">
+                          <div class="form-group col- fftnr cg" id="group-recipient">
+                              <label class="control-label" for="recipient">{{'RECIPIENT' | translate}}</label>
+                              <input type="text" 
+                                     validator="req"
+                                     class="form-control input-sm" 
+                                     id="recipient" 
+                                     name="recipient"  
+                                     title="{{'RECIPIENT' | translate}}" 
+                                     ng-model="walkers.data.recipient"
+                                     tabindex="1"/>
+                          </div>
+                      </div>
+
+
+                      <div class="col-sm-1"></div>
+                      <div class="col-sm-5">
+                          <div class="form-group col- fftnr cg" id="group-ethnic-group">
+                              <label class="control-label" for="ethnic-group">{{'ETHNIC_GROUP' | translate}}</label>
+                              <input type="text" 
+                                     validator="req"
+                                     class="form-control input-sm" ETHNIC-GROUP
+                                     id="ethnic-group" 
+                                     name="ethnic-group"  
+                                     title="{{'ETHNIC_GROUP' | translate}}" 
+                                     ng-model="walkers.data.ethnic-group"
+                                     tabindex="1"/>
+                          </div>
+                      </div>
+
+                       <div class="col-sm-1"></div>
+                      <div class="col-sm-5">
+                          <div class="form-group col- fftnr cg" id="group-maritalStatus">
+                              <label class="control-label" for="maritalStatus">{{'MARITAL_STATUS' | translate}}</label>
+                              <input type="text" 
+                                     validator="req"
+                                     class="form-control input-sm" ETHNIC-GROUP
+                                     id="maritalStatus" 
+                                     name="maritalStatus"  
+                                     title="{{'MARITAL_STATUS' | translate}}" 
+                                     ng-model="walkers.data.maritalStatus"
+                                     tabindex="1"/>
+                          </div>
+                      </div>
+
+
+
+
+
+                      <div class="col-sm-1"></div>
+                      <div class="col-sm-12">
+                          <div class="form-group col- fftnr cg" id="group-ratingEnter">
+                              <button type="button" 
+                                      class="btn btn-success btn-sm ng-binding"
+                                      ng-click="walkers.save()">
+                                  {{'SAVE' | translate}}</button>
+                          </div>
+                      </div>
+                      <!--div class="col-sm-12">
+                          <div class="form-group col- fftnr cg" id="group-expediteCountry">
+                              <label class="control-label" for="expediteCountry">{{'SENDER' | translate}}</label>
+                              <select chosen class="form-control input-sm chosen-select" 
+                                      id="expediteCountry"
+                                      name="expediteCountry" 
+                                      title="{{affiliated.dic.lbl_mv_sub_affiliate_expedite_country}}" 
+                                      ng-model="affiliated.model[type]['personal']['expediteCountry_' + type]"
+                                      exec="affiliated.loadExpediteCountryList('expediteCountry',type)"
+                                      ng-options="option.id as option.description for option in affiliated.model[type].comboExpediteCountryList"
+                                      tabindex="7">
+                                  <option value="">{{affiliated.dic.lbl_sel}}</option>
+                              </select>
+                          </div>
+                      </div-->
+                  </div>
+                  </uib-tab>
+              </uib-tabset>
+
+          </div>
+          <!--div class="panel-body">
+              <uib-tabset type="pills">
+                  <uib-tab>
+                      <uib-tab-heading>
+                          <i class="glyphicon glyphicon-user"></i> {{'PIE' | translate}}
+                      </uib-tab-heading>
+                      <div class="col-sm-5">
+                          <div class="col-sm-12">
+                              <div class="form-group col- fftnr cg" id="group-firstName">
+                                  <label class="control-label" for="firstName">{{'LANDING_PAGE' | translate}}</label>
+                                  <input type="text" 
+                                         validator="req|alpha"
+                                         class="form-control input-sm" 
+                                         id="firstName" 
+                                         name="firstName"  
+                                         title="{{affiliated.dic.lbl_mv_sub_affiliate_name}}" 
+                                         ng-model="affiliated.model[type]['personal']['firstName_' + type]"
+                                         tabindex="1"/>
+                              </div>
+                          </div>
+                          <div class="col-sm-12">
+                              <div class="form-group col- fftnr cg" id="group-birthDate">
+                                  <label class="control-label" for="birthDate">{{affiliated.dic.lbl_mv_sub_affiliate_birthdate}}</label>
+                                  <p class="input-group">
+                                      <input type="text" 
+                                             validator="req"
+                                             class="form-control input" 
+                                             id="birthDate" 
+                                             name="birthDate" 
+                                             title="{{affiliated.dic.lbl_mv_sub_affiliate_birthdate}}" 
+                                             ng-model="affiliated.model[type]['personal']['birthDate_' + type]"
+                                             is-open="affiliated.birthDateCalendar.opened"
+                                             close-text="{{affiliated.dic.lbl_salir}}"
+                                             uib-datepicker-popup="{{affiliated.dateFormat}}"
+                                             tabindex="3"/>
+                                      <span class="input-group-btn">
+                                          <button type="button" class="btn btn-default input" ng-click="affiliated.birthDateCalendar.opened = true">
+                                              <i class="glyphicon glyphicon-calendar"></i>
+                                          </button>
+                                      </span>
+                                  </p><p></p><p></p>
+                              </div>
+                          </div>
+                          <div class="col-sm-12">
+                              <div class="form-group col- fftnr cg" id="group-docType">
+                                  <label class="control-label" for="docType">{{affiliated.dic.lbl_mv_sub_affiliate_id_type}}</label>
+                                  <select chosen class="form-control input-sm chosen-select" 
+                                          validator="req"
+                                          id="docType" 
+                                          name="docType" 
+                                          title="{{affiliated.dic.lbl_mv_sub_affiliate_id_type}}" 
+                                          ng-model="affiliated.model[type]['personal']['docType_' + type]"
+                                          exec="affiliated.loadDocumentTypeList('docType',type)"
+                                          ng-options="option.id as option.description for option in affiliated.model[type].comboDocumentTypeList"
+                                          tabindex="5">
+                                      <option value="">{{affiliated.dic.lbl_sel}}</option>
+                                  </select>
+                              </div>
+                          </div>
+                          <div class="col-sm-12">
+                              <div class="form-group col- fftnr cg" id="group-expediteCountry">
+                                  <label class="control-label" for="expediteCountry">{{affiliated.dic.lbl_mv_sub_affiliate_expedite_country}}</label>
+                                  <select chosen class="form-control input-sm chosen-select" 
+                                          id="expediteCountry"
+                                          name="expediteCountry" 
+                                          title="{{affiliated.dic.lbl_mv_sub_affiliate_expedite_country}}" 
+                                          ng-model="affiliated.model[type]['personal']['expediteCountry_' + type]"
+                                          exec="affiliated.loadExpediteCountryList('expediteCountry',type)"
+                                          ng-options="option.id as option.description for option in affiliated.model[type].comboExpediteCountryList"
+                                          tabindex="7">
+                                      <option value="">{{affiliated.dic.lbl_sel}}</option>
+                                  </select>
+                              </div>
+                          </div>
+                          <div class="col-sm-12">
+                              <div class="form-group col- fftnr cg" id="group-gender">
+                                  <label class="control-label" for="gender">{{affiliated.dic.lbl_mv_sub_affiliate_gender}}</label>
+                                  <select chosen class="form-control input-sm chosen-select" 
+                                          validator="req"
+                                          id="gender" 
+                                          name="gender" 
+                                          title="{{affiliated.dic.lbl_mv_sub_affiliate_gender}}" 
+                                          ng-model="affiliated.model[type]['personal']['gender_' + type]"
+                                          exec="affiliated.loadGenderList('gender',type)"
+                                          ng-options="option.id as option.description for option in affiliated.model[type].comboGenderList"
+                                          tabindex="9">
+                                      <option value="">{{affiliated.dic.lbl_sel}}</option>
+                                  </select>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="col-sm-5">
+                          <div class="col-sm-12">
+                              <div class="form-group col- fftnr cg" id="group-lastName">
+                                  <label class="control-label" for="lastName">{{affiliated.dic.lbl_mv_sub_affiliate_last_name}}</label>
+                                  <input type="text" 
+                                         validator="req|alpha"
+                                         class="form-control input-sm" 
+                                         id="lastName"
+                                         name="lastName"
+                                         title="{{affiliated.dic.lbl_mv_sub_affiliate_last_name}}" 
+                                         ng-model="affiliated.model[type]['personal']['lastName_' + type]"
+                                         tabindex="2"/>
+                              </div>
+                          </div>
+                          <div class="col-sm-12">
+                              <div class="form-group col- fftnr cg" id="group-countryBirth">
+                                  <label class="control-label" for="countryBirth">{{affiliated.dic.lbl_mv_sub_affiliate_country_birth}}</label>
+                                  <select chosen class="form-control input-sm chosen-select"
+                                          validator="req"
+                                          id="countryBirth" 
+                                          name="countryBirth"
+                                          title="{{affiliated.dic.lbl_mv_sub_affiliate_country_birth}}" 
+                                          ng-model="affiliated.model[type]['personal']['countryBirth_' + type]"
+                                          exec="affiliated.loadCountryBirthList('countryBirth',type)"
+                                          ng-options="option.id as option.description for option in affiliated.model[type].comboCountryBirthList"
+                                          tabindex="4">
+                                      <option value="">{{affiliated.dic.lbl_sel}}</option>
+                                  </select>
+                              </div>
+                          </div>
+                          <div class="col-sm-12">
+                              <div class="form-group col- fftnr cg" id="group-affiliateId"><br>
+                                  <label class="control-label" for="affiliateId">{{affiliated.dic.lbl_mv_sub_affiliate_id}}</label>
+                                  <input type="text" 
+                                         validator="req"
+                                         class="form-control input-sm" 
+                                         id="affiliateId" 
+                                         name="affiliateId" 
+                                         title="{{affiliated.dic.lbl_mv_sub_affiliate_id}}" 
+                                         ng-model="affiliated.model[type]['personal']['affiliateId_' + type]"
+                                         tabindex="6"/>
+                              </div>
+                          </div>
+                          <div class="col-sm-12">
+                              <div class="form-group col- fftnr cg" id="group-expediteCity">
+                                  <label class="control-label" for="expediteCity">{{affiliated.dic.lbl_mv_sub_affiliate_expedite_city}}</label>
+                                  <select chosen class="form-control input-sm chosen-select" 
+                                          validator="req"
+                                          id="expediteCity" 
+                                          name="expediteCity" 
+                                          title="{{affiliated.dic.lbl_mv_sub_affiliate_expedite_city}}" 
+                                          ng-model="affiliated.model[type]['personal']['expediteCity_' + type]"
+                                          exec="affiliated.loadExpediteCityList('expediteCity',type)"
+                                          ng-options="option.id as option.description for option in affiliated.model[type].comboExpediteCityList"
+                                          tabindex="8"
+                                          data-ng-disabled="!affiliated.model[type]['personal']['expediteCountry_' + type]">
+                                      <option value="">{{affiliated.dic.lbl_sel}}</option>
+                                  </select>
+                              </div>
+                          </div>
+                          <div class="col-sm-12">
+                              <div class="form-group col- fftnr cg" id="group-maritalStatus">
+                                  <label class="control-label" for="maritalStatus">{{affiliated.dic.lbl_mv_sub_affiliate_marital_status}}</label>
+                                  <select chosen class="form-control input-sm chosen-select" 
+                                          validator="req"
+                                          id="maritalStatus" 
+                                          name="maritalStatus" 
+                                          title="{{affiliated.dic.lbl_mv_sub_affiliate_marital_status}}" 
+                                          ng-model="affiliated.model[type]['personal']['maritalStatus_' + type]"
+                                          exec="affiliated.loadMaritalStatusList('maritalStatus',type)"
+                                          ng-options="option.id as option.description for option in affiliated.model[type].comboMaritalStatusList"
+                                          tabindex="10">
+                                      <option value="">{{affiliated.dic.lbl_sel}}</option>
+                                  </select>
+                              </div>
+                          </div>                
+                      </div>
+                  </uib-tab>
+              </uib-tabset>
+              <div class="col-sm-12" ng-show="affiliated.addAffiliated">
+                  <div class="form-group col- fftnr cg" id="group-ratingEnter" align="right">
+                      <button type="button" 
+                              class="btn btn-success btn-sm ng-binding"
+                              ng-click="affiliated.open = !affiliated.open;
+                                  affiliated.addAffiliated = !affiliated.addAffiliated;
+                                  affiliated.add(affiliated.index)">
+                          {{affiliated.dic.lbl_mv_sub_second_affiliate_button_add}}</button>
+                  </div>
+              </div>
+              <div class="col-sm-12" ng-show="!affiliated.addAffiliated; type !== 'firstAffiliate'">
+                  <div class="form-group col- fftnr cg" id="group-ratingEnter" align="right">
+                      <button type="button" 
+                              validator="del"
+                              class="btn btn-success btn-sm ng-binding"
+                              ng-click="affiliated.remove(affiliated.index);">
+                          {{affiliated.dic.lbl_mv_remove_affiliated}}</button>
+                  </div>
+              </div>
+          </div-->
+          </form>
+
+
+        </div>
+      </div>
+</div>

@@ -1,0 +1,87 @@
+<div class="page-signin" ng-controller="authCtrl">
+
+
+    <div class="signin-header">
+        <section class="logo text-center">
+            <h1><a href="#/">{{main.brand}}</a></h1>
+        </section>
+    </div>
+
+    <div class="signin-body">
+        <div class="container">
+            <div class="form-container">
+
+                <form class="form-horizontal">
+                    <fieldset>
+                        <div class="form-group"><span><img src="images/logo.png" width="305px"></span>
+                            <div class="input-group input-group-first">
+                                <span class="input-group-addon">
+                                    <span class="ti-email"></span>
+                                </span>
+                                <input type="text"
+                                       class="form-control input-lg"
+                                       placeholder="Username"
+                                       ng-model="login.username"
+                                       >
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <span class="ti-lock"></span>
+                                </span>
+                                <input type="password"
+                                       class="form-control input-lg"
+                                       placeholder="Password"
+                                       ng-model="login.password"
+                                       >
+                            </div>
+                        </div>
+
+                        <div class="divider divider-xl"></div>
+                        <div class="form-group">
+                          <div class="col-sm-12" >
+                            <div class="col-sm-6">
+
+                              <div class="custom-control custom-radio">
+                                <input 
+                                  type="radio" 
+                                  class="custom-control-input" 
+                                  id="centralServer" 
+                                  name="groupOfDefaultRadios" 
+                                  checked
+                                  ng-click="onCentralServer()"
+                                 >
+                                <label class="custom-control-label" for="centralServer" style="color: #FFF">Servidor central</label>
+                              </div>
+                            </div>
+                            <div class="col-sm-6">
+                              <div class="custom-control custom-radio">
+                                <input type="radio" class="custom-control-input" id="nodeServer" name="groupOfDefaultRadios" ng-click="onNodeServer()">
+                                <label class="custom-control-label" for="nodeServer" style="color: #FFF">Servidor nodo</label>
+                              </div>
+                            </div>
+                          </div>
+                        <div class="divider divider-xl"></div>
+                          <button 
+                             type="submit"
+                             class="btn btn-success btn-lg btn-block text-center"
+                             ng-click="doLogin(login)">Log in</button>
+                        </div>
+                    </fieldset>
+                </form>
+
+                <div class="divider"></div>
+                <section class="additional-info">
+                    <p class="text-right">
+                        <a href="#/page/forgot-password">Forgot your password?</a>
+                        <span> | </span>
+                        <a href="#/page/signup">Sign up</a>
+                    </p>
+                </section>
+                
+            </div>
+        </div>
+    </div>
+
+</div>

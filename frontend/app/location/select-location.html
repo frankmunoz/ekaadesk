@@ -1,0 +1,100 @@
+<!--pre>{{selectLocation|json}}</pre-->
+
+<div class="page-signin" data-ng-controller="selectLocationCtrl">
+    <div class="signin-header">
+        <section class="logo text-center">
+            <h1><a href="#/">{{main.brand}}</a></h1>
+        </section>
+    </div>
+
+    <div class="signin-body">
+        <div class="container">
+            <div class="form-container">
+
+                <form class="form-horizontal">
+                    <fieldset>
+                        <div class="form-group"><span><img src="images/logo.png" width="305px"></span>
+                            <div class="input-group input-group-first">
+                                <span class="input-group-addon">
+                                    <span class="ti-world"> {{'GEOLOCATION1' | translate}}</span>
+                                </span>
+                                <ui-select 
+                                  ng-model="selectLocation.data.departamento" 
+                                  id="departamento" 
+                                  theme="bootstrap"
+                                  on-select="selectLocation.clean('all')"
+                                  >
+                                  <ui-select-match placeholder="{{'SELECT' | translate}}">{{$select.selected.name}}</ui-select-match>
+                                  <ui-select-choices repeat="departamento.id as departamento in selectLocation.geolocations | filter: selectLocation.geolocations.parent = null | filter: $select.search">
+                                    <span ng-bind-html="departamento.name | highlight: $select.search"></span>
+                                  </ui-select-choices>
+                                </ui-select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-map-marker"> {{'GEOLOCATION2' | translate}}</span>
+                                </span>
+                                <ui-select 
+                                  ng-model="selectLocation.data.municipio" 
+                                  id="municipio" 
+                                  theme="bootstrap"
+                                  on-select="selectLocation.clean('ins')"
+                                  ng-disabled="!selectLocation.data.departamento"
+                                  >
+                                  <ui-select-match placeholder="{{'SELECT' | translate}}">{{$select.selected.name}}</ui-select-match>
+                                  <ui-select-choices 
+                                    repeat="municipio.id as municipio in selectLocation.geolocationsByparent
+                                    | filter: $select.search 
+                                    | filter:selectLocation.geolocations.parent = selectLocation.data.departamento
+                                  ">
+                                    <span ng-bind-html="municipio.parent? municipio.name: '' | highlight: $select.search"></span>
+                                  </ui-select-choices>
+                                </ui-select>
+                            </div>
+                        </div>                        
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-cutlery"> {{'INSTITUTION' | translate}}</span>
+                                </span>
+                                <ui-select 
+                                  ng-model="selectLocation.data.institution" 
+                                  id="institution" 
+                                  theme="bootstrap"
+                                  on-select=""
+                                  ng-disabled="!selectLocation.data.municipio"
+                                  >
+                                  <ui-select-match placeholder="{{'SELECT' | translate}}">{{$select.selected.name}}</ui-select-match>
+                                  <ui-select-choices 
+                                    repeat="institution.id as institution in selectLocation.institutions 
+                                    | filter: selectLocation.institutions.geolocations = selectLocation.data.municipio 
+                                    | filter: $select.search
+                                  ">
+                                    <span ng-bind-html="institution.name | highlight: $select.search"></span>
+                                  </ui-select-choices>
+                                </ui-select>
+
+                            </div>
+                        </div>
+                        <div class="divider divider-xl"></div>
+                          <button 
+                             type="submit"
+                             ng-disabled="!selectLocation.data.institution"
+                             class="btn btn-success btn-lg btn-block text-center"
+                             ng-click="selectLocation.doNext()">{{'NEXT' | translate}}</button>
+                        </div>
+                    </fieldset>
+                </form>
+
+                <div class="divider"></div>
+                <section class="additional-info">
+
+                </section>
+                
+            </div>
+        </div>
+    </div>
+
+</div>

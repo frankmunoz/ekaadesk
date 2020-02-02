@@ -1,0 +1,6 @@
+form.ng-submitted .ng-invalid{
+    border-color: #FA787E;
+}
+form .ng-invalid.ng-touched {
+    border-color: #FA787E;
+}

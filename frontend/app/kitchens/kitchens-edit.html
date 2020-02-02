@@ -1,0 +1,438 @@
+<!--pre>
+    {{kitchens.data|json}}
+</pre-->
+<div class="page page-form">
+    <div class="panel panel-default" data-ng-controller="formConstraintsCtrl">
+        <div class="panel-heading"><strong><span class="glyphicon glyphicon-th"></span> {{'KITCHENS' | translate}} </strong></div>
+        <div class="panel-body">
+
+          <form class="form-horizontal" role="form" ng-submit="kitchens.processForm(beneficiaryFrm)" name="beneficiaryFrm" novalidate>
+
+              <div class="panel-body">
+              <uib-tabset type="pills">
+                  <uib-tab>
+                    <uib-tab-heading>
+                        <i class="glyphicon glyphicon-user"></i> {{'BENEFICIARY' | translate}} 
+                    </uib-tab-heading>
+                    <div class="col-sm-6">
+                      <div class="col-sm-12">
+                          <div class="form-group col- fftnr cg" id="group-first_name">
+                            <label class="control-label" for="first_name">{{'FIRST_NAME' | translate}}</label>
+                            <div class="input-group">
+                              <input type="text" 
+                                     validator="req"
+                                     class="form-control" 
+                                     id="first_name" 
+                                     name="first_name"  
+                                     title="{{'FIRST_NAME' | translate}}" 
+                                     ng-model="kitchens.data.first_name"
+                                     tabindex="1"/>
+                              <span class="input-group-btn">
+                                <button type="button" class="btn btn-default">
+                                  <span class="glyphicon glyphicon-user"></span>
+                                </button>
+                              </span>
+                            </div>
+                          </div>
+                      </div>
+                      <div class="col-sm-12">
+                          <div class="form-group col- fftnr cg" id="group-second_name">
+                            <label class="control-label" for="second_name">{{'SECOND_NAME' | translate}}</label>
+                            <div class="input-group">
+                              <input type="text" 
+                                     validator="req"
+                                     class="form-control" 
+                                     id="second_name" 
+                                     name="second_name"  
+                                     title="{{'SECOND_NAME' | translate}}" 
+                                     ng-model="kitchens.data.second_name"
+                                     tabindex="1"/>
+                              <span class="input-group-btn">
+                                <button type="button" class="btn btn-default">
+                                  <span class="glyphicon glyphicon-user"></span>
+                                </button>
+                              </span>
+                            </div>
+                          </div>
+                      </div>
+                      <div class="col-sm-12">
+                          <div class="form-group col- fftnr cg" id="group-surname">
+                            <label class="control-label" for="surname">{{'SURNAME' | translate}}</label>
+                            <div class="input-group">
+                              <input type="text" 
+                                     validator="req"
+                                     class="form-control" 
+                                     id="surname" 
+                                     name="surname"  
+                                     title="{{'SURNAME' | translate}}" 
+                                     ng-model="kitchens.data.surname"
+                                     tabindex="1"/>
+                              <span class="input-group-btn">
+                                <button type="button" class="btn btn-default">
+                                  <span class="glyphicon glyphicon-user"></span>
+                                </button>
+                              </span>
+                            </div>
+                          </div>
+                      </div>
+                      <div class="col-sm-12">
+                          <div class="form-group col- fftnr cg" id="group-second_surname">
+                            <label class="control-label" for="second_surname">{{'SECOND_SURNAME' | translate}}</label>
+                            <div class="input-group">
+                              <input type="text" 
+                                     validator="req"
+                                     class="form-control" 
+                                     id="second_surname" 
+                                     name="second_surname"  
+                                     title="{{'SECOND_SURNAME' | translate}}" 
+                                     ng-model="kitchens.data.second_surname"
+                                     tabindex="1"/>
+                              <span class="input-group-btn">
+                                <button type="button" class="btn btn-default">
+                                  <span class="glyphicon glyphicon-user"></span>
+                                </button>
+                              </span>
+                            </div>
+                          </div>
+                      </div>
+                      <div class="col-sm-12">
+                          <div class="form-group col- fftnr cg" id="group-document_type">
+                            <label class="control-label" for="document_type">{{'DOCUMENT_TYPE' | translate}}</label>
+                            <div class="input-group">
+                              <ui-select 
+                                ng-model="kitchens.data.document_type" 
+                                id="document_type" 
+                                theme="bootstrap">
+                                <ui-select-match placeholder="{{'SELECT' | translate}}">{{$select.selected.name}}</ui-select-match>
+                                <ui-select-choices repeat="document_type.id as document_type in kitchens.documentstype | filter: $select.search">
+                                  <span ng-bind-html="document_type.name | highlight: $select.search"></span>
+                                </ui-select-choices>
+                              </ui-select>
+                              <span class="input-group-btn">
+                                <button type="button" ng-click="kitchens.data.document_type = undefined" class="btn btn-default">
+                                  <span class="glyphicon glyphicon-trash"></span>
+                                </button>
+                              </span>
+                            </div>
+                          </div>
+                      </div>
+                      <div class="col-sm-12">
+                          <div class="form-group col- fftnr cg" id="group-document">
+                              <label class="control-label" for="document">{{'DOCUMENT' | translate}}</label>
+                              <div class="input-group">
+                                <input type="text" 
+                                       validator="req"
+                                       class="form-control" 
+                                       id="document" 
+                                       name="document"  
+                                       title="{{'DOCUMENT' | translate}}" 
+                                       ng-model="kitchens.data.document"
+                                       tabindex="1"/>                                
+                                  <span class="input-group-btn">
+                                      <button type="button" class="btn btn-default input" ng-click="$('#document').focus();">
+                                          <i class="glyphicon glyphicon glyphicon-barcode"></i>
+                                      </button>
+                                  </span>
+                              </div>
+
+                          </div>
+                      </div>
+                      <div class="col-sm-12">
+                          <div class="form-group col- fftnr cg" id="group-household_role">
+                            <label class="control-label" for="household_role">{{'HOUSEHOLD_ROLE' | translate}}</label>
+                            <div class="input-group">
+                              <ui-select 
+                                ng-model="kitchens.data.household_role" 
+                                id="household_role" 
+                                theme="bootstrap">
+                                <ui-select-match placeholder="{{'SELECT' | translate}}">{{$select.selected.name}}</ui-select-match>
+                                <ui-select-choices repeat="household_role.id as household_role in kitchens.householdroles | filter: $select.search">
+                                  <span ng-bind-html="household_role.name | highlight: $select.search"></span>
+                                </ui-select-choices>
+                              </ui-select>
+                              <span class="input-group-btn">
+                                <button type="button" ng-click="kitchens.data.household_role = undefined" class="btn btn-default">
+                                  <span class="glyphicon glyphicon-trash"></span>
+                                </button>
+                              </span>
+                            </div>
+                          </div>
+                      </div>
+                      <div class="col-sm-12">
+                          <div class="form-group col- fftnr cg" id="group-recipient">
+                            <label class="control-label" for="recipient">{{'RECIPIENT' | translate}}</label>
+                            <div class="input-group">
+                              <ui-select 
+                                ng-model="kitchens.data.recipient" 
+                                id="recipient" 
+                                theme="bootstrap">
+                                <ui-select-match placeholder="{{'SELECT' | translate}}">{{$select.selected.name}}</ui-select-match>
+                                <ui-select-choices repeat="recipient.id as recipient in kitchens.recipients | filter: $select.search">
+                                  <span ng-bind-html="recipient.name | highlight: $select.search"></span>
+                                </ui-select-choices>
+                              </ui-select>
+                              <span class="input-group-btn">
+                                <button type="button" ng-click="kitchens.data.recipient = undefined" class="btn btn-default">
+                                  <span class="glyphicon glyphicon-trash"></span>
+                                </button>
+                              </span>
+                            </div>
+                          </div>
+                      </div>
+
+                  </div>
+                  <div class="col-sm-6">
+                      <div class="col-sm-12">
+                          <div class="form-group col- fftnr cg" id="group-birthDate">
+                              <label class="control-label" for="birth_date">{{'BIRTH_DATE' | translate}}</label>
+
+                              <div class="input-group">
+                                  <input type="text" 
+                                         validator="req"
+                                         class="form-control input" 
+                                         id="birth_date" 
+                                         name="birth_date" 
+                                         title="{{'BIRTH_DATE' | translate}}" 
+                                         ng-model="kitchens.data.birth_date"
+                                         is-open="kitchens.birthDateCalendar.opened"
+                                         datepicker-options="kitchens.vdOptions"
+                                         uib-datepicker-popup="{{kitchens.dateFormat}}"
+                                         tabindex="3"/>
+                                  <span class="input-group-btn">
+                                      <button type="button" class="btn btn-default input" ng-click="kitchens.birthDateCalendar.opened = true">
+                                          <i class="glyphicon glyphicon-calendar"></i>
+                                      </button>
+                                  </span>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="col-sm-12">
+                          <div class="form-group col- fftnr cg" id="group-nationality">
+                            <label class="control-label" for="nationality">{{'NATIONALITY' | translate}}</label>
+                            <div class="input-group">
+                              <ui-select 
+                                ng-model="kitchens.data.nationality" 
+                                id="nationality" 
+                                theme="bootstrap"
+                                allow-clear 
+                              >
+                                <ui-select-match placeholder="{{'SELECT' | translate}}">{{$select.selected.name}}</ui-select-match>
+                                <ui-select-choices repeat="nationality.id as nationality in kitchens.nationalities | filter: $select.search">
+                                  <span ng-bind-html="nationality.name | highlight: $select.search"></span>
+                                </ui-select-choices>
+                              </ui-select>
+                              <span class="input-group-btn">
+                                <button type="button" ng-click="kitchens.data.nationality = undefined" class="btn btn-default">
+                                  <span class="glyphicon glyphicon-trash"></span>
+                                </button>
+                              </span>
+                            </div>
+                          </div>
+                      </div>
+                      <div class="col-sm-12">
+                          <div class="form-group col- fftnr cg" id="group-aditional_information">
+                              <label class="control-label" for="aditional_information">{{'ADITIONAL_INFORMATION' | translate}}</label>
+                              <div class="input-group">
+                              <input type="text" 
+                                     validator="req"
+                                     class="form-control" 
+                                     id="aditional_information" 
+                                     name="aditional_information"  
+                                     title="{{'ADITIONAL_INFORMATION' | translate}}" 
+                                     ng-model="kitchens.data.aditional_information"
+                                     tabindex="1"/>
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-default input">
+                                        <i class="glyphicon glyphicon glyphicon-plus"></i>
+                                    </button>
+                                </span>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="col-sm-12">
+                          <div class="form-group col- fftnr cg" id="group-phone">
+                              <label class="control-label" for="phone">{{'PHONE' | translate}}</label>
+                              <div class="input-group">
+                                <input type="text" 
+                                       validator="req"
+                                       class="form-control"
+                                       id="phone" 
+                                       name="phone"  
+                                       title="{{'PHONE' | translate}}" 
+                                       ng-model="kitchens.data.phone"
+                                       tabindex="1"/>
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-default input">
+                                        <i class="glyphicon glyphicon-phone"></i>
+                                    </button>
+                                </span>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="col-sm-12">
+                          <div class="form-group col- fftnr cg" id="group-disability">
+                            <label class="control-label" for="disability">{{'DISABILITY' | translate}}</label>
+                            <div class="input-group">
+                              <ui-select 
+                                ng-model="kitchens.data.disability" 
+                                id="disability" 
+                                theme="bootstrap">
+                                <ui-select-match placeholder="{{'SELECT' | translate}}">{{$select.selected.name}}</ui-select-match>
+                                <ui-select-choices repeat="disability.id as disability in kitchens.disabilities | filter: $select.search">
+                                  <span ng-bind-html="disability.name | highlight: $select.search"></span>
+                                </ui-select-choices>
+                              </ui-select>
+                              <span class="input-group-btn">
+                                <button type="button" ng-click="kitchens.data.disability = undefined" class="btn btn-default">
+                                  <span class="glyphicon glyphicon-trash"></span>
+                                </button>
+                              </span>
+                            </div>
+                          </div>
+                      </div>
+
+                      <div class="col-sm-12">
+                          <div class="form-group col- fftnr cg" id="group-ethnicity">
+                              <label class="control-label" for="ethnicity">{{'ETHNIC_GROUP' | translate}}</label>
+                              <div class="input-group">
+                                <input type="text" 
+                                       validator="req"
+                                       class="form-control"
+                                       id="ethnicity" 
+                                       name="ethnicity"  
+                                       title="{{'PHONE' | translate}}" 
+                                       ng-model="kitchens.data.ethnicity"
+                                       tabindex="1"/>
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-default input">
+                                        <i class="glyphicon glyphicon-globe"></i>
+                                    </button>
+                                </span>
+                              </div>
+                          </div>
+                      </div>
+
+                      <div class="col-sm-12">
+                          <div class="form-group col- fftnr cg" id="group-gender">
+                            <label class="control-label" for="gender">{{'GENDER' | translate}}</label>
+                            <div class="input-group">
+                              <ui-select 
+                                ng-model="kitchens.data.gender" 
+                                id="gender" 
+                                theme="bootstrap"
+                                on-select="kitchens.onSelectGender($item,$model)"
+                                >
+                                <ui-select-match placeholder="{{'SELECT' | translate}}">{{$select.selected.name}}</ui-select-match>
+                                <ui-select-choices repeat="gender.id as gender in kitchens.genders | filter: $select.search">
+                                  <span ng-bind-html="gender.name | highlight: $select.search"></span>
+                                </ui-select-choices>
+                              </ui-select>
+                              <span class="input-group-btn">
+                                <button type="button" ng-click="kitchens.data.gender = undefined" class="btn btn-default">
+                                  <span class="glyphicon glyphicon-trash"></span>
+                                </button>
+                              </span>
+                            </div>
+                          </div>
+                      </div>
+                      <div class="col-sm-12">
+                          <div class="form-group col- fftnr cg" id="group-migratory_status">
+                            <label class="control-label" for="migratory_status">{{'MIGRATORY_STATUS' | translate}}</label>
+                            <div class="input-group">
+                              <ui-select 
+                                ng-model="kitchens.data.migratory_status" 
+                                id="migratory_status" 
+                                theme="bootstrap"
+                                on-select="kitchens.onSelectGender($item,$model)"
+                                >
+                                <ui-select-match placeholder="{{'SELECT' | translate}}">{{$select.selected.name}}</ui-select-match>
+                                <ui-select-choices repeat="migratory_status.id as migratory_status in kitchens.migratorystatus | filter: $select.search">
+                                  <span ng-bind-html="migratory_status.name | highlight: $select.search"></span>
+                                </ui-select-choices>
+                              </ui-select>
+                              <span class="input-group-btn">
+                                <button type="button" ng-click="kitchens.data.migratory_status = undefined" class="btn btn-default">
+                                  <span class="glyphicon glyphicon-trash"></span>
+                                </button>
+                              </span>
+                            </div>
+                          </div>
+                      </div>
+                      <div class="col-sm-12" id="div-pregnant">
+                          <div class="form-group col- fftnr cg" id="group-pregnant">
+                            <label class="control-label" for="pregnant">{{'PREGNANT' | translate}}</label>
+                              <div class="input-group">
+                                <input type="text" 
+                                     validator="req"
+                                     class="form-control" 
+                                     id="pregnant" 
+                                     name="pregnant"
+                                     title="{{'PREGNANT' | translate}}" 
+                                     ng-model="kitchens.data.pregnant"
+                                     tabindex="1"/>
+                                <span class="input-group-btn">
+                                  <button type="button" class="btn btn-default">
+                                    <span class="glyphicon glyphicon-baby-formula"></span>
+                                  </button>
+                                </span>
+                              </div>
+                          </div>
+                      </div>
+                    </div>
+                  <div class="col-sm-12">
+                      <div class="col-sm-12">
+                          <div class="form-group col- fftnr cg" id="group-ratingEnter">
+                              <button type="button" 
+                                      class="btn btn-success btn-sm ng-binding"
+                                      ng-click="kitchens.save()">
+                                  {{'SAVE' | translate}}</button>
+                          </div>
+                      </div>
+                  </div>
+                  </uib-tab>
+                  <!-- Attendance Detail -->
+                  <uib-tab>
+                      <uib-tab-heading>
+                          <i class="glyphicon glyphicon-cutlery"></i> {{'ATTENDANCES' | translate}}
+                      </uib-tab-heading>   
+                        <div class="row">
+                          <section class="panel panel-default">
+                              <div class="panel-heading"><span class="glyphicon glyphicon-th"></span> {{'ATTENDANCES' | translate}}</div>
+                              <div class="panel-body" data-ng-controller="ModalDemoCtrl">
+
+                                <div class="col-sm-12" ng-show="kitchens.attendances.length">
+                                  <div class="card-columns">
+                                    <div class="card"  data-ng-repeat="attendance in kitchens.attendances">
+                                      <div class="card-header">
+                                        <img src="bower_components/applab/img/icon/{{attendance.modality_type_id}}.png" width="30px">
+                                        {{attendance.geolocation}}
+                                      </div>
+                                      <div class="card-body ">
+                                            <h5 class="card-title">{{attendance.institution}}</h5>
+                                            <p class="card-text">{{attendance.partner}}</p>
+                                            <span class="badge badge-success">{{attendance.modality_type}} </span>
+                                            <span class="badge badge-primary">{{attendance.modality}} </span>
+                                      </div>
+                                      <div class="card-footer text-right">
+                                            {{attendance.year}}/{{attendance.month}}/{{attendance.day}}
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div ng-show="!kitchens.attendances.length">
+                                  <div class="alert alert-info container col-sm-12" role="alert">
+                                    {{'NO_DATA' | translate}}
+                                  </div>
+                                </div>
+                           </div>
+                          </section>
+                        </div>
+
+                  </uib-tab>
+                  <!-- End Attendance Detail -->
+              </uib-tabset>
+          </div>
+          </form>
+        </div>
+      </div>
+</div>

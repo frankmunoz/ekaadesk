@@ -1,0 +1,44 @@
+<div class="modal-header">
+    <h3>{{"ATTENDANCES"|translate}}</h3>
+</div>
+<div class="modal-body">
+    <span class="list-unstyled">
+        <div class="row">
+          <section class="panel panel-default">
+            <div class="panel-heading">
+                <span class="glyphicon glyphicon-th"></span> {{'ATTENDANCES' | translate}} {{attendance.modalityType.name}}
+            </div>
+            <div class="panel-body">
+                <div class="col-sm-12">
+                  <div class="card-columns">
+                    <div class="card"  data-ng-repeat="item in attendance.items">
+                      <div class="card-header">
+                        <img src="bower_components/applab/img/icon/{{attendance.modalityType.id}}.png" width="30px">
+                      </div>
+                      <div class="card-body checkbox"  style="background-color: {{item.color}}; ">
+                            <label style="color: black;">
+                                <input 
+                                    type="checkbox" 
+                                    value=""
+                                    ng-checked="attendance.selected.item === item" 
+                                    ng-click="attendance.selected.item = item">
+                                <span class="cr"><i class="cr-icon fa fa-check"></i></span>
+                                {{item.name}}
+                            </label>
+                      </div>
+                      <div class="card-footer"></div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+          </section>
+        </div>
+    </span>
+</div>
+<div cslass="modal-footer" class="card-footer text-right">
+    <button class="btn btn-primary" ng-click="attendance.ok()">OK</button>
+    <button class="btn btn-warning" ng-click="attendance.cancel()">Cancel</button><br><br>
+</div>
+<!--pre>
+  {{attendance.selected.item|json}}
+</pre-->
