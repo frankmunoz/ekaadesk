@@ -2989,7 +2989,7 @@
 
                 $scope.onNodeServer = function(){
 //                    appConfig.path.service = "http://192.168.0.9:8000/api/v1/";
-                    appConfig.path.service = "http://192.168.137.1:8000/api/v1/";
+                    appConfig.path.service = "http://127.0.0.1:8000/api/v1/";
                     localStorage.setItem("path",appConfig.path.service);
                 }
 
