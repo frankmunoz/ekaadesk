@@ -58,76 +58,75 @@
         </div>
 
 
-                        <div class="row">                                
-                            <div class="col-sm-12" ng-show="kitchens.beneficiaries.length">
-                                <div id="btnContainer" ng-init="collapsedCard=true; class = 'fa fa-th-large'">
-                                  <button class="btn" 
-                                    ng-model="collapsedTable" 
-                                    ng-click="collapsedTable=!collapsedTable; 
-                                    collapsedCard=!collapsedCard; 
-                                    collapsedCard?class = 'fa fa-th-large':class = 'fa fa-bars'">
-                                    <i class="{{class}}"></i> {{collapsedCard?'VIEW_GRID':'VIEW_LIST' | translate}}</button> 
-                                </div>
-                            <div class="card-columns">
-                                <div class="card" data-ng-repeat="beneficiary in kitchens.beneficiaries" ng-show="collapsedCard">
-                                  <div class="card-header">
-                                    <span 
-                                        class="flag-icon 
-                                        flag-icon-{{kitchens.nationalities[beneficiary.nationality - 1].code}}">
-                                    </span>
-                                    {{'HOUSEHOLD_CODE' | translate}} {{beneficiary.household_code}}
-                                  </div>
-                                  <div class="card-body ">
-                                    <div class="row">                                
-                                        <div class="col-sm-10" >
-                                            <h5 class="card-title">{{beneficiary.document}}</h5>
-                                            <p class="card-text">
-                                                <small class="text-muted">
-                                                {{kitchens.getNameById(beneficiary.document_type,kitchens.documentstype)}}
-                                                </small>
-                                            </p>
-                                            <p class="card-text" style="font-weight: bold;">
-                                                    {{beneficiary.first_name}}
-                                                    {{beneficiary.second_name}}
-                                                    {{beneficiary.surname}}
-                                                    {{beneficiary.second_surname}}
-                                            </p>
-                                            <p class="card-text">
-                                                <small class="text-muted">
-                                                    {{kitchens.getNameById(beneficiary.gender,kitchens.genders)}}
-                                                </small>
-                                            </p>
-                                        </div>
-                                        <div class="col-sm-2 text-right" >
-                                            <table align="right">
-                                                <tr>
-                                                    <td bgcolor="{{beneficiary.color}}">
-                                                        <button 
-                                                            type="button" 
-                                                            class="btn btn-primary px-3" 
-                                                            ng-click="kitchens.open(beneficiary)">
-                                                            <span class="glyphicon glyphicon-ok"></span>
-                                                        </button>
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                        </div>
-                                    </div>
-
-
-                                  </div>
-                                  <div class="card-footer text-right">
-                                        {{beneficiary.birth_date?beneficiary.birth_date:'00/00/0000'}}
-                                  </div>
-                                </div>
-                            </div>
-                            </div>
-                            <div ng-show="!kitchens.beneficiaries.length">
-                              <div class="alert alert-info container col-sm-12" role="alert">
-                                {{'NO_DATA' | translate}}
-                              </div>
-                            </div>
+        <div class="row">                                
+            <div class="col-sm-12" ng-show="kitchens.beneficiaries.length">
+                <div id="btnContainer" ng-init="collapsedCard=true; class = 'fa fa-th-large'">
+                  <button class="btn" 
+                    ng-model="collapsedTable" 
+                    ng-click="collapsedTable=!collapsedTable; 
+                    collapsedCard=!collapsedCard; 
+                    collapsedCard?class = 'fa fa-th-large':class = 'fa fa-bars'">
+                    <i class="{{class}}"></i> {{collapsedCard?'VIEW_GRID':'VIEW_LIST' | translate}}</button> 
+                </div>
+            <div class="card-columns">
+                <div class="card" data-ng-repeat="beneficiary in kitchens.beneficiaries" ng-show="collapsedCard">
+                  <div class="card-header">
+                    <span 
+                        class="flag-icon 
+                        flag-icon-{{kitchens.nationalities[beneficiary.nationality - 1].code}}">
+                    </span>
+                    {{'HOUSEHOLD_CODE' | translate}} {{beneficiary.household_code}}
+                  </div>
+                  <div class="card-body ">
+                    <div class="row">                                
+                        <div class="col-sm-10" >
+                            <p class="card-text" style="font-weight: bold;">
+                                <img src="images/{{beneficiary.gender}}.png">
+                                {{beneficiary.document}}
+                                <small class="text-muted">
+                                {{kitchens.getNameById(beneficiary.document_type,kitchens.documentstype)}}
+                                </small>
+                                <br>
+                                {{beneficiary.first_name}}
+                                {{beneficiary.second_name}}
+                                {{beneficiary.surname}}
+                                {{beneficiary.second_surname}}
+                            </p>
+                            <!--p class="card-text">{{beneficiary.document}}
+                                <small class="text-muted">
+                                {{kitchens.getNameById(beneficiary.document_type,kitchens.documentstype)}}
+                                </small>
+                            </p-->
+                            <!--h5 class="card-title">{{beneficiary.document}}</h5-->
                         </div>
+                        <div class="col-sm-2 text-right" >
+                            <table align="right">
+                                <tr>
+                                    <td bgcolor="{{beneficiary.color}}">
+                                        <button 
+                                            type="button" 
+                                            class="btn btn-primary px-3" 
+                                            ng-click="kitchens.open(beneficiary)">
+                                            <span class="glyphicon glyphicon-ok"></span>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                  </div>
+                  <div class="card-footer text-right">
+                        {{beneficiary.birth_date?beneficiary.birth_date:'00/00/0000'}}
+                  </div>
+                </div>
+            </div>
+            </div>
+            <div ng-show="!kitchens.beneficiaries.length">
+              <div class="alert alert-info container col-sm-12" role="alert">
+                {{'NO_DATA' | translate}}
+              </div>
+            </div>
+        </div>
 
         <table class="table table-bordered table-striped table-responsive table-darks table-hover" ng-show="collapsedTable">
             <thead class="thead-dark">
