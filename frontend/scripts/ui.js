@@ -3762,7 +3762,8 @@ angular.module("ui.bootstrap", ["ui.bootstrap.tpls", "ui.bootstrap.collapse", "u
                     try{
                         if(config.url.indexOf("login") === -1 && localStorage.data != 'undefined'){
                             const user = JSON.parse(localStorage.getItem('data'));
-                            config.headers["Authorization"] = "Token "+ user.token;
+//                            if(user.token)
+                            config.headers["Authorization"] = "Token "+ user.token;                                
                         }
                     }
                     catch(error){

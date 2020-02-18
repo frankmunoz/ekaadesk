@@ -3,7 +3,8 @@
 
 <div class="page page-table" data-ng-controller="ModalDemoCtrl">
     <section class="panel panel-default table-dynamic">
-        <div class="panel-heading"><strong> <span class="glyphicon glyphicon-th" data-translate="KITCHENS"></span> </strong>
+        <div class="panel-heading">
+            <strong> <span class="glyphicon glyphicon-th" data-translate="KITCHENS"></span> </strong>
         </div>
         <div class="table-filters">
             <div class="row">
@@ -19,14 +20,22 @@
                 <div class="col-sm-3 col-xs-3 filter-result-info">
                     <span>
                         {{"SHOWING"|translate}} {{kitchens.data.results.length}} / {{kitchens.data.count}} {{"ENTRIES"|translate}}
-                    </span>              
+                    </span>
+                </div>
+                <div id="btnContainer" ng-init="collapsedCard=true; class = 'fa fa-th-large'">
+                  <button class="btn" 
+                    ng-model="collapsedTable" 
+                    ng-click="collapsedTable=!collapsedTable; 
+                    collapsedCard=!collapsedCard; 
+                    collapsedCard?class = 'fa fa-th-large':class = 'fa fa-bars'">
+                    <i class="{{class}}"></i> {{collapsedCard?'VIEW_GRID':'VIEW_LIST' | translate}}</button> 
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="col-md-6 pagination-container">
               <div class="col-sm-12">
-                <div class="input-group ">
+                <div class="input-group">
                     <ul class="pagination">
                       <span class="input-group-btn">
                         <button type="button" class="btn btn-default" ng-click="kitchens.previous()">
@@ -42,7 +51,6 @@
                 </div>
               </div>
             </div>
-
               <div class="col-sm-6 text-right">
                   <div class="col-sm-12">
                       <div class="form-group col- fftnr cg">
@@ -53,21 +61,10 @@
                       </div>
                   </div>
               </div>
-
-
         </div>
-
-
         <div class="row">                                
             <div class="col-sm-12" ng-show="kitchens.beneficiaries.length">
-                <div id="btnContainer" ng-init="collapsedCard=true; class = 'fa fa-th-large'">
-                  <button class="btn" 
-                    ng-model="collapsedTable" 
-                    ng-click="collapsedTable=!collapsedTable; 
-                    collapsedCard=!collapsedCard; 
-                    collapsedCard?class = 'fa fa-th-large':class = 'fa fa-bars'">
-                    <i class="{{class}}"></i> {{collapsedCard?'VIEW_GRID':'VIEW_LIST' | translate}}</button> 
-                </div>
+
             <div class="card-columns">
                 <div class="card" data-ng-repeat="beneficiary in kitchens.beneficiaries" ng-show="collapsedCard">
                   <div class="card-header">
@@ -106,7 +103,7 @@
                                         <button 
                                             type="button" 
                                             class="btn btn-primary px-3" 
-                                            ng-click="kitchens.open(beneficiary)">
+                                            ng-click="kitchens.onRegisterAttendance(beneficiary)">
                                             <span class="glyphicon glyphicon-ok"></span>
                                         </button>
                                     </td>
@@ -181,7 +178,6 @@
                             <span class="glyphicon glyphicon-ok"></span>
                         </button>
                     </td>
-
                 </tr>
             </tbody>
         </table>
@@ -213,7 +209,6 @@
 
 
         <div class="col-md-6">
-
             <!-- Modal -->
             <!--section class="panel panel-default">
                 <div class="panel-heading"><span class="glyphicon glyphicon-th"></span> Modal</div>

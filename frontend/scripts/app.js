@@ -88,7 +88,7 @@
         function () {
             "use strict";
             angular.module("app.ui", [])
-        }(),
+        }(),/*
         function () {
             "use strict";
             angular.run(function ($rootScope, $location, authService) {
@@ -110,16 +110,17 @@
 
                             } else {
                                 $location.path("/page/signin");
-                        authService.toastError("Sesion expirada 2");
+                                authService.toastError("Sesion expirada");
                             }
                         }
                     }).catch(function(results){
                         $location.path("/page/signin");
+                        console.log("RESULTS==>",results);
                         authService.toastError("Sesion expirada");
                     });
                 });
             });
-        },
+        },*/
         function () {
             "use strict";
 
@@ -2447,6 +2448,7 @@
                         var ls;
                         try{
                             ls = JSON.parse(localStorage.getItem('data'));
+                            
                             authService.get('persons/' + ls.user_id).then(function (results) {
                                 if (results.user.id) {
                                     $rootScope.authenticated = true;
@@ -2455,16 +2457,21 @@
                                     $rootScope.email = results.user.email;
                                     $rootScope.partner = results.partner;
                                     $rootScope.rol = results.rol;
+                                }else{
+                                    console.log("results=========>",results);
                                 }
                             }).catch(function(results){
+                                
                                 var nextUrl = next.$$route.originalPath;
                                 if (nextUrl == '/page/signup' || nextUrl == '/page/signin'|| nextUrl == '/page/forgot-password') {
 
                                 } else {
                                     $location.path("/page/signin");
                                     authService.toastError($translate.instant('NO_SESSION'));
-                                    console.log("REDITECT LOGIN")
+                                    console.log("----->REDIRECT LOGIN");
+                                    exit;
                                 }
+                                
                             });
                         }catch(error){
                             $location.path("/page/signin");
@@ -2823,6 +2830,8 @@
 
             function b(a) {
                 var b;
+                // REVISAR aQUi
+                //localStorage.getItem('data')
                 a.user = {
                     email: "",
                     password: ""
@@ -2986,6 +2995,7 @@
                 $scope.signup = {};
                 appConfig.path.service = "http://200.91.218.166:8000/api/v1/";
                 localStorage.setItem("path",appConfig.path.service);
+                localStorage.setItem("data",null);
 
                 $scope.onNodeServer = function(){
 //                    appConfig.path.service = "http://192.168.0.9:8000/api/v1/";

@@ -20,7 +20,8 @@
                                 <input 
                                     type="checkbox" 
                                     value=""
-                                    ng-checked="attendance.selected.item === item" 
+                                    ng-checked="attendance.selected.item === item || item.disabled" 
+                                    ng-disabled="item.disabled"
                                     ng-click="attendance.selected.item = item">
                                 <span class="cr"><i class="cr-icon fa fa-check"></i></span>
                                 {{item.name}}
@@ -36,7 +37,10 @@
     </span>
 </div>
 <div cslass="modal-footer" class="card-footer text-right">
-    <button class="btn btn-primary" ng-click="attendance.ok()">OK</button>
+    <button class="btn btn-primary" 
+      ng-disabled="!attendance.isObjectEmpty(attendance.selected.item)" 
+      ng-click="attendance.ok()">OK
+    </button>
     <button class="btn btn-warning" ng-click="attendance.cancel()">Cancel</button><br><br>
 </div>
 <!--pre>

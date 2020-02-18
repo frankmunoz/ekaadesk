@@ -16,17 +16,36 @@
     kitchensCtrl.$inject = ["kitchensService","validatorService","$translate","$location", "$routeParams","$filter","$rootScope","logger","$document","$uibModal"];
     attendanceCtrl.$inject = ["kitchensService","$uibModalInstance","items","modalityType","$location","$translate","logger"];
 
+    /*************************
+    * attendanceCtrl
+    **************************/
     function attendanceCtrl(kitchensService,$uibModalInstance,items,modalityType,$location,$translate,toast){
         var vm = this;
         vm.items = items;
         vm.modalityType = modalityType;
-
         vm.ok = function () {
-          $uibModalInstance.close(vm.selected.item);
-          kitchensService.postAttendances(vm.selected.item)
+            $uibModalInstance.close(vm.selected.item);
+            if(vm.isObjectEmpty(vm.selected.item)){
+                var attendance = vm.selected.item;
+                var data = {
+                    "lon":attendance.lon
+                    ,"lat":attendance.lat
+                    ,"institution": attendance.institution
+                    ,"beneficiary": attendance.beneficiary
+                    ,"person": attendance.person
+                    ,"modality": attendance.id
+                };
+
+                kitchensService.postAttendances(data)
                     .then(frmComplete)
                     .catch(frmFailed);
+
+            }
         };
+
+        vm.isObjectEmpty = function(obj) {
+          return !!Object.keys(obj).length;
+        }
 
         vm.cancel = function () {
           $uibModalInstance.dismiss('cancel');
@@ -36,14 +55,21 @@
         };
 
         vm.selected = {
-            item: vm.items[0]
+            item: {}
         };
 
+        function updateAttendanceByBeneficiary(data){
+            console.log("DaTA===>",data);
+        }
 
         function frmComplete(data) {
             if (data.error) {
                 toast.logError($translate.instant('ERROR'));
             } else {
+                var attendance = vm.selected.item;
+                kitchensService.get(attendance.beneficiary)
+                    .then(updateAttendanceByBeneficiary)
+                    .catch(frmFailed);
                 toast.logSuccess($translate.instant('SUCCESS'));
                 $location.path("kitchens");
             }
@@ -56,6 +82,9 @@
         }
 
     }
+    /*************************
+    * kitchensCtrl
+    **************************/
 
     function kitchensCtrl(kitchensService, validatorService, $translate, $location, $routeParams,$filter,$rootScope,toast,$document,$uibModal) {
         var vm = this;
@@ -76,62 +105,7 @@
 
         vm.items = [];
         vm.animationsEnabled = !0; 
-
-        vm.open = function (beneficiary,modalSize) {
-            var modalities = JSON.parse(localStorage.getItem('modalities'));
-            var modalitiestype = JSON.parse(localStorage.getItem('modalitiestype'));
-            var modalityTypeId = 0;
-            var userInstitution = JSON.parse(localStorage.getItem('userInstitution'));
-            var i = 0;
-            angular.forEach(modalities, function(value, key) {
-                if(value.modality_type == userInstitution.modality_type){
-                    modalityTypeId = value.modality_type;
-
-                    var position = JSON.parse(localStorage.getItem('position'));
-                    var data = JSON.parse(localStorage.getItem('data'));
-                    var institution = JSON.parse(localStorage.getItem('userInstitution'));
-
-                    value.lat = Math.round(position.latitude,8);
-                    value.lon = Math.round(position.longitude,8);
-                    value.person = data.user_id;
-                    value.partner = data.partner;
-                    value.institution = institution.id;
-                    value.beneficiary = beneficiary.id;
-
-                    vm.items[i++] = value;
-                }
-            });
-            angular.forEach(modalitiestype, function(value, key) {
-                if(value.id == modalityTypeId){
-                    vm.modalityType = value;
-                }
-            });
-
-            var modalInstance = $uibModal.open({
-                animation: vm.animationsEnabled,
-                templateUrl: "app/kitchens/kitchens-attendance.html",
-                controller: "attendanceCtrl",
-                controllerAs: "attendance",
-                size: modalSize,
-                resolve: {
-                    items: function () {
-                        return vm.items;
-                    },
-                    modalityType: function() {
-                        return vm.modalityType;
-                    }
-
-                }
-            });
-            modalInstance.result.then(function (selected) {
-                vm.selected = selected
-            }, function () {
-                console.log("Modal dismissed at: " + new Date)
-            })
-        }, vm.toggleAnimation = function () {
-            vm.animationsEnabled = !vm.animationsEnabled
-        }
-
+        var __session;
 
         activate();
 
@@ -143,6 +117,7 @@
 
         function initKitchens(){
             vm.id = $routeParams.id | 0;
+            __session = JSON.parse(localStorage.getItem('data'));
             vm.genders = JSON.parse(localStorage.getItem('genders'));
             vm.disabilities = JSON.parse(localStorage.getItem('disabilities'));
             vm.documentstype = JSON.parse(localStorage.getItem('documentstype'));
@@ -258,13 +233,18 @@
                         __getAttendances();
                     }
                     if (data.error) {
-                        toast.logError($translate.instant('ERROR'));
-                        $location.path("kitchens/");
+                        toast.logError($translate.instant('ERROR 1'));
+                        console.log("__session.user_id===>",__session.user_id);
+                        if(__getSession()){
+                            $location.path("kitchens/");
+                        }
                     }
                     return data;
                 } catch (error) {
-                    toast.logError($translate.instant('ERROR'));
-                    $location.path("kitchens/");
+                    toast.logError($translate.instant('ERROR 2'));
+                    if(__getSession()){
+                        $location.path("kitchens/");
+                    }
                     return null;
                 }
             });
@@ -287,6 +267,16 @@
                     .then(frmComplete)
                     .catch(frmFailed);
 
+        }
+
+        function __getSession(){
+            try{
+                if(__session.user_id){
+                    return __session.user_id;
+                }
+            }catch(error){
+                console.log("missing session");
+            }
         }
 
         function frmComplete(data) {
@@ -337,6 +327,74 @@
                 return __get(query);
             }
         }
+
+        /*
+        Attendance
+        */
+
+        vm.onRegisterAttendance = function (beneficiary,modalSize) {
+            var modalities = JSON.parse(localStorage.getItem('modalities'));
+            var modalitiestype = JSON.parse(localStorage.getItem('modalitiestype'));
+            var modalityTypeId = 0;
+            var userInstitution = JSON.parse(localStorage.getItem('userInstitution'));
+            var position = JSON.parse(localStorage.getItem('position'));
+            var data = JSON.parse(localStorage.getItem('data'));
+            var institution = JSON.parse(localStorage.getItem('userInstitution'));
+            var attendanceToday =[];
+            var i = 0;
+            kitchensService.getAttendanceToday(beneficiary.id)
+                .then(function(data){
+                    angular.forEach(data, function(value, key){
+                        attendanceToday[value.modality_id] = true;    
+                    });
+
+                    angular.forEach(modalities, function(value, key) {
+                        if(value.modality_type == userInstitution.modality_type){
+                            modalityTypeId = value.modality_type;
+                            value.lat = position.latitude.toFixed(7);
+                            value.lon = position.longitude.toFixed(7);
+                            value.person = data.user_id;
+                            value.partner = data.partner;
+                            value.institution = institution.id;
+                            value.beneficiary = beneficiary.id;
+                            value.disabled = attendanceToday[value.id];
+                            vm.items[i++] = value;
+                        }
+                    });
+
+                    angular.forEach(modalitiestype, function(value, key) {
+                        if(value.id == modalityTypeId){
+                            vm.modalityType = value;
+                        }
+                    });
+
+                    var modalInstance = $uibModal.open({
+                        animation: vm.animationsEnabled,
+                        templateUrl: "app/kitchens/kitchens-attendance.html",
+                        controller: "attendanceCtrl",
+                        controllerAs: "attendance",
+                        size: modalSize,
+                        resolve: {
+                            items: function () {
+                                return vm.items;
+                            },
+                            modalityType: function() {
+                                return vm.modalityType;
+                            }
+
+                        }
+                    });
+                    modalInstance.result.then(function (selected) {
+                        vm.selected = selected
+                    }, function () {
+                        console.log("Modal dismissed at: " + new Date)
+                    })                    
+                })
+                .catch(frmFailed);
+        }, vm.toggleAnimation = function () {
+            vm.animationsEnabled = !vm.animationsEnabled
+        };
+
 
     }
 

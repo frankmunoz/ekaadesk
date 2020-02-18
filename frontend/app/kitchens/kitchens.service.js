@@ -28,7 +28,8 @@
             get: __get,
             getAttendances: __getAttendances,
             postAttendances: __postAttendances,
-            all: __all,
+            getAttendanceToday: __getAttendanceToday,
+            all: __all
         };
 
         return service;
@@ -57,6 +58,16 @@
 
         function __getAttendances(id) {
             var url = urlService + "attendance/detail/beneficiary/" + id;
+            return $http({
+                url: url,
+                method: 'GET'
+            })
+                    .then(getComplete)
+                    .catch(getFailed);
+        }
+
+        function __getAttendanceToday(id) {
+            var url = urlService + "attendance/today/beneficiary/" + id;
             return $http({
                 url: url,
                 method: 'GET'
