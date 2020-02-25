@@ -14,12 +14,12 @@
             .controller("attendanceCtrl", attendanceCtrl);
 
     kitchensCtrl.$inject = ["kitchensService","validatorService","$translate","$location", "$routeParams","$filter","$rootScope","logger","$document","$uibModal"];
-    attendanceCtrl.$inject = ["kitchensService","$uibModalInstance","items","modalityType","$location","$translate","logger"];
+    attendanceCtrl.$inject = ["kitchensService","$uibModalInstance","items","modalityType","$location","$translate","logger","$scope"];
 
     /*************************
     * attendanceCtrl
     **************************/
-    function attendanceCtrl(kitchensService,$uibModalInstance,items,modalityType,$location,$translate,toast){
+    function attendanceCtrl(kitchensService,$uibModalInstance,items,modalityType,$location,$translate,toast,$scope){
         var vm = this;
         vm.items = items;
         vm.modalityType = modalityType;
@@ -55,21 +55,25 @@
         };
 
         vm.selected = {
-            item: {}
+            item: {},
+            data: {}
         };
 
-        function updateAttendanceByBeneficiary(data){
-            console.log("DaTA===>",data);
-        }
 
         function frmComplete(data) {
             if (data.error) {
                 toast.logError($translate.instant('ERROR'));
             } else {
+                console.log("POST ATTEN===>",data);
                 var attendance = vm.selected.item;
-                kitchensService.get(attendance.beneficiary)
-                    .then(updateAttendanceByBeneficiary)
-                    .catch(frmFailed);
+                vm.selected.data = data;
+
+                vm.beneficiaryData = data;
+                console.log("======>",$scope)
+                if(data.has_diferent_modalities){
+                    toast.logWarning($translate.instant('HAS_DIFFERENT_MODALITIES'));
+                }
+
                 toast.logSuccess($translate.instant('SUCCESS'));
                 $location.path("kitchens");
             }
@@ -298,6 +302,22 @@
             toast.logError($translate.instant('ERROR'));
         }
 
+        document.addEventListener('keypress', function(e){
+            var charInput = e.keyCode;
+            if (e.srcElement.type == 'text') {
+                if((charInput >= 97) && (charInput <= 122)) { // lowercase
+                  if(!e.ctrlKey && !e.metaKey && !e.altKey) { // no modifier key
+                    var newChar = charInput - 32;
+                    var start = e.target.selectionStart;
+                    var end = e.target.selectionEnd;
+                    e.target.value = e.target.value.substring(0, start) + String.fromCharCode(newChar) + e.target.value.substring(end);
+                    e.target.setSelectionRange(start+1, start+1);
+                    e.preventDefault();
+                  }
+                }
+            }
+
+        });
 
         /*
         Datagrid
@@ -386,6 +406,7 @@
                     });
                     modalInstance.result.then(function (selected) {
                         vm.selected = selected
+                        console.log("vm.selected.data===>",selected)
                     }, function () {
                         console.log("Modal dismissed at: " + new Date)
                     })                    

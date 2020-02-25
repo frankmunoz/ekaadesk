@@ -67,7 +67,7 @@
                 exactLength: 'The "%s" field must be exactly "%s" characters in length.',
                 minValue: 'El campo "%s" debe tener un valor mínimo de %d.',
                 maxValue: 'El campo "%s" debe tener un valor máximo de %d.',
-                alpha: 'The "%s" field may only contain alphabetical characters.',
+                alpha: 'El campo "%s" solo puede contener caracteres alfabéticos.',
                 greaterThan: 'El campo "%s" debe contener un valor mayor.',
                 lessThan: 'El campo "%s" debe contener un valor menor.',
                 greaterThanOrEqualTo: 'El campo "%s" debe contener un valor mayor.',
